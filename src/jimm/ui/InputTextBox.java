@@ -313,11 +313,16 @@ public final class InputTextBox extends DisplayableEx implements CommandListener
             return;
         }
         String normalizedText = StringConvertor.restoreCrLf(text);
+        // #sijapp cond.if target is "MIDP2"#
         try {
-            box.setString(normalizedText);
-            return;
+            if (Jimm.isPhone(Jimm.PHONE_NOKIA)) {
+                box.setString("");
+                box.insert(text, getCaretPosition());
+                return;
+            }
         } catch (Exception e) {
         }
+        // #sijapp cond.end #
         try {
             box.setString(normalizedText.substring(0, textLimit));
             return;
